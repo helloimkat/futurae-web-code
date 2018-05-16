@@ -1,0 +1,187 @@
+$color-dark: #323236;
+$color-green: #5FB97D;
+$color-orange: #D75014;
+$grey-fade: #F5F6F8;
+$grey-dark: #747474;
+
+/* TYPOGRAPHY */
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+}
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+}
+
+h3 {
+    color: $color-green;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+h5 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+
+}
+
+h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+/* HELPER CLASSES*/
+
+.bcg-wrap {
+    background: url(../assets/bcg1.png) no-repeat left top, url(../assets/bcg2.png) right top no-repeat;
+    background-size: 600px;
+    background-color: $color-dark;
+}
+
+.btn-demo {
+    background-color: $color-orange;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 7px 15px 7px 15px;
+}
+
+.bg-light {
+    background-color: white;
+}
+
+.bg-dark {
+    background-color: $color-dark;
+}
+
+.bg-highlight {
+    background-color: $color-green;
+}
+
+.highlight-color {
+    color: $color-green;
+}
+
+section {
+    padding-top: 100px;
+}
+
+.bigger-padding {
+    padding: 150xp 0px 150px 0px;
+}
+
+.form-subscribe {
+    border: 1px solid #D75014;
+    background-color: transparent;
+    padding: 6px 100px 6px 100px;
+}
+
+hr {
+    margin-bottom: 5rem;
+    border: 0;
+    border-top: 1px solid white;
+}
+
+
+/* COMPONENTS */
+
+.navbar {
+    padding-top: 35px;
+
+    .nav-item {
+        margin-right: 25px;
+    }
+
+    .nav-link {
+        text-transform: uppercase;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+        color: white!important;
+    }
+}
+
+.intro-screen {
+    height: 500px;
+    margin-bottom: -300px;
+    margin-top: -60px;
+    margin-left: 30px;
+}
+
+.latest-blog {
+    background-color: $grey-fade;
+    border: 1px #ECECEC solid;
+    height: 477px;
+
+    .card-header {
+        border-bottom: 1px solid #E2E2E2;
+        background-color: transparent;
+
+        a {
+            color: $grey-dark;
+        }
+    }
+
+    .card-title {
+        color: $color-green;
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+    }
+
+    .card-text {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: #747474;
+    }
+
+    .card-footer {
+        text-transform: capitalize;
+        background-color: $color-dark;
+        a {
+            color: white;
+
+            &:hover {
+                font-weight: 400;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+#testimonials {
+    background-color: $grey-fade;
+
+    .testimonial-card {
+        background-color: transparent;
+        border: none;
+
+        .card-body {
+            border: 1px #ECECEC solid;
+            background-color: white;
+            height: 180px;
+        }
+
+        .card-footer {
+            border: none;
+            background: transparent;
+        }
+    }
+}
+
+
+#newsletter {
+    background-color: #323236;
+}
