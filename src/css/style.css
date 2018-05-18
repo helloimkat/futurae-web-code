@@ -33,6 +33,11 @@ p {
   background-size: 600px;
   background-color: #323236; }
 
+.bcg-wrap-logo {
+  background: url(../assets/bcg2.png) right top no-repeat;
+  background-size: 600px;
+  background-color: #323236; }
+
 .btn-demo {
   background-color: #D75014;
   color: white;
@@ -40,10 +45,18 @@ p {
   text-transform: uppercase;
   padding: 7px 15px 7px 15px; }
 
+.btn-bordered {
+  background-color: transparent;
+  border: 1px solid #D75014;
+  color: #D75014;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 7px 15px 7px 15px; }
+
 .bg-light {
   background-color: white; }
 
-.bg-dark {
+.bg-darks {
   background-color: #323236; }
 
 .bg-highlight {
@@ -51,6 +64,9 @@ p {
 
 .highlight-color {
   color: #5FB97D; }
+
+.highlight-secondary {
+  color: #D75014; }
 
 section {
   padding-top: 100px; }
