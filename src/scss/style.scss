@@ -184,3 +184,45 @@ hr {
 #newsletter {
     background-color: #323236;
 }
+
+.latest-blog {
+    background-color: $grey-fade;
+    border: 1px #ECECEC solid;
+    height: 477px;
+
+    .card-header {
+        border-bottom: 1px solid #E2E2E2;
+        background-color: transparent;
+
+        a {
+            color: $grey-dark;
+        }
+    }
+
+    .card-title {
+        color: $color-green;
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+    }
+
+    .card-text {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: #747474;
+    }
+
+    .card-footer {
+        text-transform: capitalize;
+        background-color: $color-dark;
+        a {
+            color: white;
+
+            &:hover {
+                font-weight: 400;
+                text-decoration: none;
+            }
+        }
+    }
+}
