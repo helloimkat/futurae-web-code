@@ -52,6 +52,8 @@ p {
   font-weight: 700;
   text-transform: uppercase;
   padding: 7px 15px 7px 15px; }
+  .btn-bordered a {
+    color: white; }
 
 .bg-light {
   background-color: white; }
@@ -62,7 +64,7 @@ p {
 .bg-highlight {
   background-color: #5FB97D; }
 
-.highlight-color {
+a .highlight-color {
   color: #5FB97D; }
 
 .highlight-secondary {
@@ -101,33 +103,15 @@ hr {
   margin-top: -60px;
   margin-left: 30px; }
 
-.latest-blog {
-  background-color: #F5F6F8;
-  border: 1px #ECECEC solid;
-  height: 477px; }
-  .latest-blog .card-header {
-    border-bottom: 1px solid #E2E2E2;
-    background-color: transparent; }
-    .latest-blog .card-header a {
-      color: #747474; }
-  .latest-blog .card-title {
-    color: #5FB97D;
-    font-size: 16px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700; }
-  .latest-blog .card-text {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: #747474; }
-  .latest-blog .card-footer {
-    text-transform: capitalize;
-    background-color: #323236; }
-    .latest-blog .card-footer a {
-      color: white; }
-      .latest-blog .card-footer a:hover {
-        font-weight: 400;
-        text-decoration: none; }
+.card .blog-item {
+  height: 400px; }
+
+.btn-blog {
+  background-color: #D75014;
+  font-weight: 700;
+  text-transform: uppercase; }
+  .btn-blog a {
+    color: white; }
 
 #testimonials {
   background-color: #F5F6F8; }

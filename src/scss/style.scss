@@ -72,6 +72,10 @@ p {
     text-transform: uppercase;
     padding: 7px 15px 7px 15px;
 
+    a {
+        color: white;
+    }
+
 }
 
 .bg-light {
@@ -86,8 +90,10 @@ p {
     background-color: $color-green;
 }
 
-.highlight-color {
-    color: $color-green;
+a {
+    .highlight-color {
+        color: $color-green;
+    }
 }
 
 .highlight-secondary {
@@ -114,7 +120,6 @@ hr {
     border-top: 1px solid white;
 }
 
-
 /* COMPONENTS */
 
 .navbar {
@@ -139,45 +144,19 @@ hr {
     margin-left: 30px;
 }
 
-.latest-blog {
-    background-color: $grey-fade;
-    border: 1px #ECECEC solid;
-    height: 477px;
 
-    .card-header {
-        border-bottom: 1px solid #E2E2E2;
-        background-color: transparent;
-
-        a {
-            color: $grey-dark;
-        }
+.card {
+    .blog-item {
+        height: 400px;
     }
+}
 
-    .card-title {
-        color: $color-green;
-        font-size: 16px;
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 700;
-    }
-
-    .card-text {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 400;
-        font-size: 14px;
-        color: #747474;
-    }
-
-    .card-footer {
-        text-transform: capitalize;
-        background-color: $color-dark;
-        a {
-            color: white;
-
-            &:hover {
-                font-weight: 400;
-                text-decoration: none;
-            }
-        }
+.btn-blog {
+    background-color: $color-orange;
+    font-weight: 700;
+    text-transform: uppercase;
+    a {
+        color: white;
     }
 }
 
