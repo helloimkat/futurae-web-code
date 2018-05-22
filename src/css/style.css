@@ -27,6 +27,9 @@ p {
   font-weight: 300;
   font-size: 16px; }
 
+a {
+  color: #5FB97D; }
+
 .twitter-widget {
   padding: 50px; }
 
@@ -36,7 +39,7 @@ p {
 /* HELPER CLASSES*/
 #header {
   padding-top: 180px;
-  padding-bottom: 50px; }
+  padding-bottom: 80px; }
 
 #header-company {
   padding-bottom: 100px; }
@@ -122,6 +125,10 @@ p {
   .btn-bordered a {
     color: white; }
 
+#posts {
+  padding-top: 50px;
+  padding-bottom: 50px; }
+
 .bg-light {
   background-color: white; }
 
@@ -149,20 +156,28 @@ section {
   padding: 6px 100px 6px 100px; }
 
 hr {
-  margin-bottom: 5rem;
   border: 0;
   border-top: 1px solid white; }
 
 /* COMPONENTS */
 .navbar {
   padding-top: 35px; }
-  .navbar .nav-item {
-    margin-right: 25px; }
   .navbar .nav-link {
     text-transform: uppercase;
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
-    color: white !important; }
+    color: white;
+    font-size: 15px; }
+
+.active {
+  color: #5FB97D !important; }
+
+.dropdown .dropdown-item:active {
+  background: #D75014 !important; }
+
+.demo-btn-nav {
+  border: 1px solid #5FB97D;
+  border-radius: 5px; }
 
 .intro-screen {
   height: 500px;
@@ -192,6 +207,41 @@ hr {
     #testimonials .testimonial-card .card-footer {
       border: none;
       background: transparent; }
+
+#featured-article {
+  margin-top: 100px;
+  padding-bottom: 30px; }
+
+.blog-archive {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+@media (max-width: 576px) {
+  .blog-archive {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; } }
+
+.card-img-right {
+  height: 200px;
+  border-radius: 0 3px 3px 0;
+  width: 300px;
+  display: flex;
+  align-self: center; }
+
+#recent-article {
+  margin-top: 35px;
+  padding-bottom: 30px; }
+  #recent-article .card {
+    height: 202px; }
+
+@media (max-width: 576px) {
+  #recent-article {
+    margin-top: 35px;
+    padding-bottom: 30px; }
+    #recent-article .card {
+      height: auto; } }
 
 #newsletter {
   background-color: #323236; }
@@ -312,3 +362,16 @@ hr {
   height: 100%;
   width: 100%;
   position: absolute; }
+
+/* BLOG ARTICLE */
+.blog-article-heading {
+  padding-top: 50px;
+  padding-bottom: 80px; }
+  .blog-article-heading h2 {
+    color: white; }
+  .blog-article-heading a {
+    color: #5FB97D; }
+
+.blog-article-content {
+  padding-top: 50px;
+  padding-bottom: 80px; }

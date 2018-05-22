@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<!-- This function is used to display response attributes in a table format.-->
+<!-- Support for one extra level of depth, for describing the possible values-->
+<!-- of an attribute using a table (table inside a table cell)-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Futurae Auth API Guidelines</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="jquery-3.0.0.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');
+        .hljs-comment,
+        .hljs-title {
+            color: #8e908c
+        }
+
+        .hljs-variable,
+        .hljs-attribute,
+        .hljs-tag,
+        .hljs-regexp,
+        .ruby .hljs-constant,
+        .xml .hljs-tag .hljs-title,
+        .xml .hljs-pi,
+        .xml .hljs-doctype,
+        .html .hljs-doctype,
+        .css .hljs-id,
+        .css .hljs-class,
+        .css .hljs-pseudo {
+            color: #c82829
+        }
+
+        .hljs-number,
+        .hljs-preprocessor,
+        .hljs-pragma,
+        .hljs-built_in,
+        .hljs-literal,
+        .hljs-params,
+        .hljs-constant {
+            color: #f5871f
+        }
+
+        .ruby .hljs-class .hljs-title,
+        .css .hljs-rules .hljs-attribute {
+            color: #eab700
+        }
+
+        .hljs-string,
+        .hljs-value,
+        .hljs-inheritance,
+        .hljs-header,
+        .ruby .hljs-symbol,
+        .xml .hljs-cdata {
+            color: #718c00
+        }
+
+        .css .hljs-hexcolor {
+            color: #3e999f
+        }
+
+        .hljs-function,
+        .python .hljs-decorator,
+        .python .hljs-title,
+        .ruby .hljs-function .hljs-title,
+        .ruby .hljs-title .hljs-keyword,
+        .perl .hljs-sub,
+        .javascript .hljs-title,
+        .coffeescript .hljs-title {
+            color: #4271ae
+        }
+
+        .hljs-keyword,
+        .javascript .hljs-function {
+            color: #8959a8
+        }
+
+        .hljs {
+            display: block;
+            background: white;
+            color: #4d4d4c;
+            padding: .5em
+        }
+
+        .coffeescript .javascript,
+        .javascript .xml,
+        .tex .hljs-formula,
+        .xml .javascript,
+        .xml .vbscript,
+        .xml .css,
+        .xml .hljs-cdata {
+            opacity: .5
+        }
+
+        .right .hljs-comment {
+            color: #969896
+        }
+
+        .right .css .hljs-class,
+        .right .css .hljs-id,
+        .right .css .hljs-pseudo,
+        .right .hljs-attribute,
+        .right .hljs-regexp,
+        .right .hljs-tag,
+        .right .hljs-variable,
+        .right .html .hljs-doctype,
+        .right .ruby .hljs-constant,
+        .right .xml .hljs-doctype,
+        .right .xml .hljs-pi,
+        .right .xml .hljs-tag .hljs-title {
+            color: #c66
+        }
+
+        .right .hljs-built_in,
+        .right .hljs-constant,
+        .right .hljs-literal,
+        .right .hljs-number,
+        .right .hljs-params,
+        .right .hljs-pragma,
+        .right .hljs-preprocessor {
+            color: #de935f
+        }
+
+        .right .css .hljs-rule .hljs-attribute,
+        .right .ruby .hljs-class .hljs-title {
+            color: #f0c674
+        }
+
+        .right .hljs-header,
+        .right .hljs-inheritance,
+        .right .hljs-name,
+        .right .hljs-string,
+        .right .hljs-value,
+        .right .ruby .hljs-symbol,
+        .right .xml .hljs-cdata {
+            color: #b5bd68
+        }
+
+        .right .css .hljs-hexcolor,
+        .right .hljs-title {
+            color: #8abeb7
+        }
+
+        .right .coffeescript .hljs-title,
+        .right .hljs-function,
+        .right .javascript .hljs-title,
+        .right .perl .hljs-sub,
+        .right .python .hljs-decorator,
+        .right .python .hljs-title,
+        .right .ruby .hljs-function .hljs-title,
+        .right .ruby .hljs-title .hljs-keyword {
+            color: #81a2be
+        }
+
+        .right .hljs-keyword,
+        .right .javascript .hljs-function {
+            color: #b294bb
+        }
+
+        .right .hljs {
+            display: block;
+            overflow-x: auto;
+            background: #1d1f21;
+            color: #c5c8c6;
+            padding: .5em;
+            -webkit-text-size-adjust: none
+        }
+
+        .right .coffeescript .javascript,
+        .right .javascript .xml,
+        .right .tex .hljs-formula,
+        .right .xml .css,
+        .right .xml .hljs-cdata,
+        .right .xml .javascript,
+        .right .xml .vbscript {
+            opacity: .5
+        }
+
+        body {
+            color: black;
+            background: white;
+            font: 400 14px / 1.42 'Roboto', Helvetica, sans-serif
+        }
+
+        header {
+            border-bottom: 1px solid #ededed;
+            margin-bottom: 12px
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            color: black;
+            margin: 12px 0
+        }
+
+        h1 .permalink,
+        h2 .permalink,
+        h3 .permalink,
+        h4 .permalink,
+        h5 .permalink {
+            margin-left: 0;
+            opacity: 0;
+            transition: opacity .25s ease
+        }
+
+        h1:hover .permalink,
+        h2:hover .permalink,
+        h3:hover .permalink,
+        h4:hover .permalink,
+        h5:hover .permalink {
+            opacity: 1
+        }
+
+        .triple h1 .permalink,
+        .triple h2 .permalink,
+        .triple h3 .permalink,
+        .triple h4 .permalink,
+        .triple h5 .permalink {
+            opacity: .15
+        }
+
+        .triple h1:hover .permalink,
+        .triple h2:hover .permalink,
+        .triple h3:hover .permalink,
+        .triple h4:hover .permalink,
+        .triple h5:hover .permalink {
+            opacity: .15
+        }
+
+        h1 {
+            font: 200 36px 'Raleway', Helvetica, sans-serif;
+            font-size: 36px
+        }
+
+        h2 {
+            font: 200 36px 'Raleway', Helvetica, sans-serif;
+            font-size: 30px
+        }
+
+        h3 {
+            font-size: 100%;
+            text-transform: uppercase
+        }
+
+        h4 {
+            margin-bottom: 5px
+        }
+
+        h5 {
+            font-size: 100%;
+            font-weight: normal
+        }
+
+        p {
+            margin: 0 0 10px
+        }
+
+        p.choices {
+            line-height: 1.6
+        }
+
+        a {
+            color: #18bc9c;
+            text-decoration: none
+        }
+
+        li p {
+            margin: 0
+        }
+
+        hr.split {
+            border: 0;
+            height: 1px;
+            width: 100%;
+            padding-left: 6px;
+            margin: 12px auto;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.2) 51.4%, rgba(255, 255, 255, 0.2) 51.4%, rgba(255, 255, 255, 0) 80%)
+        }
+
+        dl dt {
+            float: left;
+            width: 130px;
+            clear: left;
+            text-align: right;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 700
+        }
+
+        dl dd {
+            margin-left: 150px
+        }
+
+        blockquote {
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 15.5px;
+            padding: 10px 20px;
+            margin: 12px 0;
+            border-left: 5px solid #e8e8e8
+        }
+
+        blockquote p:last-child {
+            margin-bottom: 0
+        }
+
+        pre {
+            background-color: #f5f5f5;
+            padding: 12px;
+            border: 1px solid #cfcfcf;
+            border-radius: 6px;
+            overflow: auto;
+            margin-top: 0
+        }
+
+        pre code {
+            color: black;
+            background-color: transparent;
+            padding: 0;
+            border: none
+        }
+
+        code {
+            color: #444;
+            background-color: #f5f5f5;
+            font: 'Inconsolata', monospace;
+            padding: 1px 4px;
+            border: 1px solid #cfcfcf;
+            border-radius: 3px
+        }
+
+        ul,
+        ol {
+            padding-left: 2em
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 12px
+        }
+
+        table th {
+            background-color: #fafafa
+        }
+
+        table th,
+        table td {
+            padding: 6px 12px;
+            border: 1px solid #e6e6e6
+        }
+
+        .text-muted {
+            opacity: .5
+        }
+
+        .note,
+        .warning {
+            padding: .3em 1em;
+            margin: 1em 0;
+            border-radius: 2px;
+            font-size: 90%
+        }
+
+        .note h1,
+        .warning h1,
+        .note h2,
+        .warning h2,
+        .note h3,
+        .warning h3,
+        .note h4,
+        .warning h4,
+        .note h5,
+        .warning h5,
+        .note h6,
+        .warning h6 {
+            font-family: 200 36px 'Raleway', Helvetica, sans-serif;
+            font-size: 135%;
+            font-weight: 500
+        }
+
+        .note p,
+        .warning p {
+            margin: .5em 0
+        }
+
+        .note {
+            color: black;
+            background-color: #eff7fc;
+            border-left: 4px solid #3498db
+        }
+
+        .note h1,
+        .note h2,
+        .note h3,
+        .note h4,
+        .note h5,
+        .note h6 {
+            color: #3498db
+        }
+
+        .warning {
+            color: black;
+            background-color: #fcf0ef;
+            border-left: 4px solid #d62c1a
+        }
+
+        .warning h1,
+        .warning h2,
+        .warning h3,
+        .warning h4,
+        .warning h5,
+        .warning h6 {
+            color: #d62c1a
+        }
+
+        header {
+            margin-top: 24px
+        }
+
+        nav {
+            position: fixed;
+            top: 24px;
+            bottom: 0;
+            overflow-y: auto
+        }
+
+        nav .resource-group {
+            padding: 0
+        }
+
+        nav .resource-group .heading {
+            position: relative
+        }
+
+        nav .resource-group .heading .chevron {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            opacity: .5
+        }
+
+        nav .resource-group .heading a {
+            display: block;
+            color: black;
+            opacity: .7;
+            border-left: 2px solid transparent;
+            margin: 0
+        }
+
+        nav .resource-group .heading a:hover {
+            text-decoration: none;
+            background-color: #d4d4d4;
+            border-left: 2px solid black
+        }
+
+        nav .resource-group .heading a.active {
+            text-decoration: none;
+            background-color: #d4d4d4;
+            border-left: 2px solid black;
+            font-weight: bold
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding-left: 0
+        }
+
+        nav ul a {
+            display: block;
+            font-size: 13px;
+            color: rgba(0, 0, 0, 0.7);
+            padding: 8px 12px;
+            border-top: 1px solid #ededed;
+            border-left: 2px solid transparent;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        nav ul a:hover {
+            text-decoration: none;
+            background-color: #e2e2e2;
+            border-left: 2px solid black
+        }
+
+        nav ul a.active {
+            text-decoration: none;
+            background-color: #d4d4d4;
+            border-left: 2px solid black;
+            font-weight: bold
+        }
+
+        nav ul>li {
+            margin: 0
+        }
+
+        nav ul>li:first-child {
+            margin-top: -12px
+        }
+
+        nav ul>li:last-child {
+            margin-bottom: -12px
+        }
+
+        nav ul ul a {
+            padding-left: 24px
+        }
+
+        nav ul ul li {
+            margin: 0
+        }
+
+        nav ul ul li:first-child {
+            margin-top: 0
+        }
+
+        nav ul ul li:last-child {
+            margin-bottom: 0
+        }
+
+        nav>div>div>ul>li:first-child>a {
+            border-top: none
+        }
+
+        @-moz-document url-prefix() {
+            nav .resource-group .heading a.active {
+                font-weight: normal
+            }
+            nav ul a {
+                white-space: normal
+            }
+            nav ul a.active {
+                font-weight: normal
+            }
+        }
+
+        .preload * {
+            transition: none !important
+        }
+
+        .pull-left {
+            float: left
+        }
+
+        .pull-right {
+            float: right
+        }
+
+        .badge {
+            display: inline-block;
+            float: right;
+            min-width: 10px;
+            min-height: 14px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: normal;
+            color: #000;
+            background-color: #ededed;
+            border-radius: 10px;
+            margin: -2px 0
+        }
+
+        .badge.get {
+            color: white;
+            background-color: #3498db
+        }
+
+        .badge.head {
+            color: white;
+            background-color: #3498db
+        }
+
+        .badge.options {
+            color: white;
+            background-color: #3498db
+        }
+
+        .badge.put {
+            color: white;
+            background-color: #f39c12
+        }
+
+        .badge.patch {
+            color: white;
+            background-color: #f39c12
+        }
+
+        .badge.post {
+            color: white;
+            background-color: #18bc9c
+        }
+
+        .badge.delete {
+            color: white;
+            background-color: #e74c3c
+        }
+
+        .collapse-button {
+            float: right
+        }
+
+        .collapse-button .close {
+            display: none;
+            color: #18bc9c;
+            cursor: pointer
+        }
+
+        .collapse-button .open {
+            color: #18bc9c;
+            cursor: pointer
+        }
+
+        .collapse-button.show .close {
+            display: inline
+        }
+
+        .collapse-button.show .open {
+            display: none
+        }
+
+        .collapse-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease-in-out
+        }
+
+        nav {
+            width: 300px
+        }
+
+        .container {
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .container .row .content {
+            margin-left: 324px;
+            width: 696px;
+            width: 776px
+        }
+
+        .container .row:after {
+            content: '';
+            display: block;
+            clear: both
+        }
+
+        .container-fluid nav {
+            width: 22%
+        }
+
+        .container-fluid .row .content {
+            margin-left: 24%
+        }
+
+        .container-fluid.triple nav {
+            width: 16.5%;
+            padding-right: 1px
+        }
+
+        .container-fluid.triple .row .content {
+            position: relative;
+            margin-left: 16.5%;
+            padding-left: 24px
+        }
+
+        .middle:before,
+        .middle:after {
+            content: '';
+            display: table
+        }
+
+        .middle:after {
+            clear: both
+        }
+
+        .middle {
+            box-sizing: border-box;
+            width: 51.5%;
+            padding-right: 12px
+        }
+
+        .right {
+            box-sizing: border-box;
+            float: right;
+            width: 48.5%;
+            padding-left: 12px
+        }
+
+        .right a {
+            color: #18bc9c
+        }
+
+        .right h1,
+        .right h2,
+        .right h3,
+        .right h4,
+        .right h5,
+        .right p,
+        .right div {
+            color: white
+        }
+
+        .right pre {
+            background-color: #1d1f21;
+            border: 1px solid #1d1f21
+        }
+
+        .right pre code {
+            color: #c5c8c6
+        }
+
+        .right .description {
+            margin-top: 12px
+        }
+
+        .triple .resource-heading {
+            font-size: 125%
+        }
+
+        .definition {
+            margin-top: 12px;
+            margin-bottom: 12px
+        }
+
+        .definition .method {
+            font-weight: bold
+        }
+
+        .definition .method.get {
+            color: #2e80b8
+        }
+
+        .definition .method.head {
+            color: #2e80b8
+        }
+
+        .definition .method.options {
+            color: #2e80b8
+        }
+
+        .definition .method.post {
+            color: #2eb89d
+        }
+
+        .definition .method.put {
+            color: #b8822e
+        }
+
+        .definition .method.patch {
+            color: #b8822e
+        }
+
+        .definition .method.delete {
+            color: #b83b2e
+        }
+
+        .definition .uri {
+            word-break: break-all;
+            word-wrap: break-word
+        }
+
+        .definition .hostname {
+            opacity: .5
+        }
+
+        .example-names {
+            background-color: #eee;
+            padding: 12px;
+            border-radius: 6px
+        }
+
+        .example-names .tab-button {
+            cursor: pointer;
+            color: black;
+            border: 1px solid #ddd;
+            padding: 6px;
+            margin-left: 12px
+        }
+
+        .example-names .tab-button.active {
+            background-color: #d5d5d5
+        }
+
+        .right .example-names {
+            background-color: #444
+        }
+
+        .right .example-names .tab-button {
+            color: white;
+            border: 1px solid #666;
+            border-radius: 6px
+        }
+
+        .right .example-names .tab-button.active {
+            background-color: #5e5e5e
+        }
+
+        #nav-background {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 16.5%;
+            padding-right: 14.4px;
+            background-color: #fbfbfb;
+            border-right: 1px solid #f0f0f0;
+            z-index: -1
+        }
+
+        #right-panel-background {
+            position: absolute;
+            right: -12px;
+            top: -12px;
+            bottom: -12px;
+            width: 48.6%;
+            background-color: #333;
+            z-index: -1
+        }
+
+        @media (max-width:1200px) {
+            nav {
+                width: 270px
+            }
+            .container {
+                max-width: 1000px
+            }
+            .container .row .content {
+                margin-left: 294px;
+                width: 686px
+            }
+        }
+
+        @media (max-width:1002px) {
+            nav {
+                width: 210px
+            }
+            .container {
+                max-width: 800px
+            }
+            .container .row .content {
+                margin-left: 234px;
+                width: 526px
+            }
+        }
+
+        @media (max-width:784px) {
+            nav {
+                display: none
+            }
+            .container {
+                width: 95%;
+                max-width: none
+            }
+            .container .row .content,
+            .container-fluid .row .content,
+            .container-fluid.triple .row .content {
+                margin-left: auto;
+                margin-right: auto;
+                width: 95%
+            }
+            #nav-background {
+                display: none
+            }
+            #right-panel-background {
+                width: 48.6%
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            z-index: 1;
+            bottom: 0;
+            right: 24px;
+            padding: 4px 8px;
+            color: rgba(0, 0, 0, 0.5);
+            background-color: #ededed;
+            text-decoration: none !important;
+            border-top: 1px solid #ededed;
+            border-left: 1px solid #ededed;
+            border-right: 1px solid #ededed;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px
+        }
+
+        .resource-group {
+            padding: 12px;
+            margin-bottom: 12px;
+            background-color: white;
+            border: 1px solid #ededed;
+            border-radius: 6px
+        }
+
+        .resource-group h2.group-heading,
+        .resource-group .heading a {
+            padding: 12px;
+            margin: -12px -12px 12px -12px;
+            background-color: #ededed;
+            border-bottom: 1px solid #ededed;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .triple .content .resource-group {
+            padding: 0;
+            border: none
+        }
+
+        .triple .content .resource-group h2.group-heading,
+        .triple .content .resource-group .heading a {
+            margin: 0 0 12px 0;
+            border: 1px solid #ededed
+        }
+
+        nav .resource-group .heading a {
+            padding: 12px;
+            margin-bottom: 0
+        }
+
+        nav .resource-group .collapse-content {
+            padding: 0
+        }
+
+        .action {
+            margin-bottom: 12px;
+            padding: 12px 12px 0 12px;
+            overflow: hidden;
+            border: 1px solid transparent;
+            border-radius: 6px
+        }
+
+        .action h4.action-heading {
+            padding: 6px 12px;
+            margin: -12px -12px 12px -12px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            overflow: hidden
+        }
+
+        .action h4.action-heading .name {
+            float: right;
+            font-weight: normal;
+            padding: 6px 0
+        }
+
+        .action h4.action-heading .method {
+            padding: 6px 12px;
+            margin-right: 12px;
+            border-radius: 3px;
+            display: inline-block
+        }
+
+        .action h4.action-heading .method.get {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading .method.head {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading .method.options {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading .method.put {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading .method.patch {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading .method.post {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading .method.delete {
+            color: #000;
+            background-color: white
+        }
+
+        .action h4.action-heading code {
+            color: #444;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-color: transparent;
+            font-weight: normal;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 2px
+        }
+
+        .action dl.inner {
+            padding-bottom: 2px
+        }
+
+        .action .title {
+            border-bottom: 1px solid white;
+            margin: 0 -12px -12px -12px;
+            padding: 12px
+        }
+
+        .action.get {
+            border-color: #3498db
+        }
+
+        .action.get h4.action-heading {
+            color: white;
+            background: #3498db;
+            border-bottom-color: #3498db
+        }
+
+        .action.head {
+            border-color: #3498db
+        }
+
+        .action.head h4.action-heading {
+            color: white;
+            background: #3498db;
+            border-bottom-color: #3498db
+        }
+
+        .action.options {
+            border-color: #3498db
+        }
+
+        .action.options h4.action-heading {
+            color: white;
+            background: #3498db;
+            border-bottom-color: #3498db
+        }
+
+        .action.post {
+            border-color: #18bc9c
+        }
+
+        .action.post h4.action-heading {
+            color: white;
+            background: #18bc9c;
+            border-bottom-color: #18bc9c
+        }
+
+        .action.put {
+            border-color: #f39c12
+        }
+
+        .action.put h4.action-heading {
+            color: white;
+            background: #f39c12;
+            border-bottom-color: #f39c12
+        }
+
+        .action.patch {
+            border-color: #f39c12
+        }
+
+        .action.patch h4.action-heading {
+            color: white;
+            background: #f39c12;
+            border-bottom-color: #f39c12
+        }
+
+        .action.delete {
+            border-color: #e74c3c
+        }
+
+        .action.delete h4.action-heading {
+            color: white;
+            background: #e74c3c;
+            border-bottom-color: #e74c3c
+        }
+
+        div.tab {
+            overflow: hidden;
+            border: 1px solid #eee;
+            border-top-right-radius: 6px;
+            border-top-left-radius: 6px;
+            background-color: #eee
+        }
+
+        div.tab button {
+            font: 400 14px / 1.42 'Roboto', Helvetica, sans-serif;
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 12px
+        }
+
+        div.tab button:hover {
+            background-color: #e2e2e2
+        }
+
+        div.tab button.active {
+            background-color: #d5d5d5;
+            font-weight: bold
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #eee;
+            border-top: none;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px
+        }
+
+    </style>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-84920413-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</head>
+
+<body class="preload"><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a>
+    <div class="container">
+        <div class="row">
+            <nav id="navigation">
+                <div class="resource-group">
+                    <div class="heading">
+                        <div class="chevron"><i class="open fa"></i></div><a href="https://www.futurae.com/">futurae.com</a></div>
+                </div>
+                <div class="resource-group">
+                    <div class="heading">
+                        <div class="chevron"><i class="open fa"></i>
+                            <!--.fa-angle-down-->
+                        </div><a href="#top" onclick="setActive(this)">Overview</a></div>
+                    <!--.collapse-content-->
+                    <ul>
+                        <li><a href="#header-futurae-authentication-suite" onclick="setActive(this)">Futurae Authentication Suite</a></li>
+                        <li><a href="#header-requirements" onclick="setActive(this)">Requirements</a></li>
+                        <li><a href="#header-auth-api-usage-overview" onclick="setActive(this)">Auth API Usage Overview</a></li>
+                        <li><a href="#header-enrollment-with-the-futurae-mobile-app" onclick="setActive(this)">Enrollment with the Futurae Mobile App</a></li>
+                        <li><a href="#header-enrollment-with-a-phone-number" onclick="setActive(this)">Enrollment with a Phone Number</a></li>
+                        <li><a href="#header-authentication" onclick="setActive(this)">Authentication</a></li>
+                        <li><a href="#header-authentication-using-soundproof" onclick="setActive(this)">Authentication Using SoundProof</a></li>
+                        <li><a href="#header-mobile-only-authentication-(single-device)" onclick="setActive(this)">Mobile Only Authentication (Single Device)</a></li>
+                        <li><a href="#header-transaction-authentication" onclick="setActive(this)">Transaction Authentication</a></li>
+                    </ul>
+                </div>
+                <!--each meta in self.api.metadata || {}-->
+                <!--    if meta.name == 'HOST'-->
+                <!--        p(style="text-align: center; word-wrap: break-word;")-->
+                <!--            a(href=meta.value)= meta.value-->
+            </nav>
+            <div class="content">
+                <header>
+                    <h1 id="top">Futurae Auth API Guidelines</h1>
+                </header>
+                <!--pre #{ self.api.descriptionHtml }-->
+                <p>The Futurae Auth API can be used in order to add <strong>two-factor authentication</strong> and <strong>transaction signing</strong> to your website or application, or integrate any of the offered authentication factors into your existing authentication platform.</p>
+                <p>Here you will find high level guidelines on how to make use of the Auth API, including instructions for using the SoundProof authentication factor.</p>
+                <p>In order to be able to use the Auth API you will need to get your <strong>Service ID</strong>, <strong>Service Auth API key</strong> and <strong>Service hostname</strong>. Please refer to the <a href="auth_api.html">Auth API reference documentation</a> for a detailed reference of the available HTTP endpoints, and on the structure and format of the each individual HTTP request and response.</p>
+                <h2 id="header-futurae-authentication-suite">Futurae Authentication Suite <a class="permalink" href="#header-futurae-authentication-suite" aria-hidden="true">¶</a></h2>
+                <p>Futurae offers a portfolio of authentication factors, which leverage the user’s phone or other mobile devices as software tokens which the user proves possession of during authentication. This is realized by having the user install the Futurae mobile app on his mobile device and enrolling it with his account (except SMS which relies on the user’s mobile phone number). All the available factors can be integrated and used via the Futurae Auth API. The following tables summarize the currently offered factors and their properties.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align:left"></th>
+                            <th style="text-align:left">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:left"><em>Approve</em></td>
+                            <td style="text-align:left">One-Touch authentication using a push notification which is sent to the user’s mobile device.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>Mobile Auth</em></td>
+                            <td style="text-align:left">Single device authentication (i.e., the user is authenticating from a mobile device with an enrolled Futurae mobile app).</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>QR Code</em></td>
+                            <td style="text-align:left">One-Touch authentication using QR code scanning (also known as PhotoTAN).</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>SMS</em></td>
+                            <td style="text-align:left">Authentication via a one-time code which is received via SMS (also known as mTAN).</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>SoundProof</em></td>
+                            <td style="text-align:left">Zero-Touch authentication by transparently verifying proximity of the user’s mobile device and the device on which the authentication takes place.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>TOTP</em></td>
+                            <td style="text-align:left">Authentication via a time-based one-time code which is retrieved by the Futurae mobile app.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align:left"></th>
+                            <th style="text-align:center">User interaction</th>
+                            <th style="text-align:center">Transaction signing</th>
+                            <th style="text-align:center">Backend-only integration</th>
+                            <th style="text-align:center">Mobile app</th>
+                            <th style="text-align:center">Internet connectivity on mobile device</th>
+                            <th style="text-align:center">Specify device<sup>*</sup></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:left"><em>Approve</em></td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>Mobile Auth</em></td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">No</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>QR Code</em></td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">No</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>SMS</em></td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">No</td>
+                            <td style="text-align:center">No<sup>**</sup></td>
+                            <td style="text-align:center">Yes</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>SoundProof</em></td>
+                            <td style="text-align:center">No</td>
+                            <td style="text-align:center">No</td>
+                            <td style="text-align:center">No</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left"><em>TOTP</em></td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">No</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">Yes</td>
+                            <td style="text-align:center">No</td>
+                            <td style="text-align:center">No</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><sup>*</sup> The device which is going to be used for a particular authentication attempt needs to be specified, in case the user has multiple enrolled devices (“auto” option is available, which automatically uses the user’s most recently enrolled device).</p>
+                <p><sup>**</sup> SMS does not require Internet connectivity on the phone, but it still requires the ability to receive SMS messages.</p>
+                <h2 id="header-requirements">Requirements <a class="permalink" href="#header-requirements" aria-hidden="true">¶</a></h2>
+                <p>All the authentication factors offered by Futurae, except SMS, require the installation and usage of the Futurae mobile app. The Futurae mobile app is available on the following platforms:</p>
+                <ul>
+                    <li>
+                        <p><strong>Android</strong> (minimum required version: Jelly Bean 4.1.x – API Level 16).</p>
+                        <ul>
+                            <li>Official Play Store URL: <a href="https://play.google.com/store/apps/details?id=com.futurae.mobileapp">https://play.google.com/store/apps/details?id=com.futurae.mobileapp</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>iOS</strong> (minimum required version: iOS 9).</p>
+                        <ul>
+                            <li>Official App Store URL: <a href="https://itunes.apple.com/us/app/futurae/id1069858990?mt=8">https://itunes.apple.com/us/app/futurae/id1069858990?mt=8</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Moreover, SoundProof authentication is supported on the following browsers:</p>
+                <ul>
+                    <li>
+                        <p>Google Chrome</p>
+                    </li>
+                    <li>
+                        <p>Microsoft Edge</p>
+                    </li>
+                    <li>
+                        <p>Apple Safari (from version 11)</p>
+                    </li>
+                    <li>
+                        <p>Mozilla Firefox</p>
+                    </li>
+                    <li>
+                        <p>Opera</p>
+                    </li>
+                </ul>
+                <h2 id="header-auth-api-usage-overview">Auth API Usage Overview <a class="permalink" href="#header-auth-api-usage-overview" aria-hidden="true">¶</a></h2>
+                <p>The Auth API features two main categories: Endpoints for enrolling and managing users, and endpoints for performing secondary authentication and transaction signing for enrolled users.</p>
+                <h3 id="header-enrollment-with-the-futurae-mobile-app">Enrollment with the Futurae Mobile App <a class="permalink" href="#header-enrollment-with-the-futurae-mobile-app" aria-hidden="true">¶</a></h3>
+                <p>Before being able to use authentication for a user of your application, you must first enroll the user and his mobile device on the Futurae server. Each user can have multiple enrolled devices, but he must have at least one enrolled device in order to be able to use authentication. For most authentication factors, such as SoundProof and Approve, the Futurae mobile app (or your app which has the Futurae SDK integrated) has to be installed on the user’s device and paired with that user’s account.</p>
+                <p>The following flowchart illustrates the basic steps for performing an enrollment:</p>
+                <center>
+                    <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;zoom&quot;:0.9,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile userAgent=\&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6\&quot; version=\&quot;8.5.0\&quot; editor=\&quot;www.draw.io\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;d8592b69-d73b-d440-f7c0-01fe49438f22\&quot; name=\&quot;Page-1\&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+                    <script type="text/javascript" src="https://www.draw.io/js/viewer.min.js"></script>
+                </center>
+                <p>In summary:</p>
+                <ol>
+                    <li>
+                        <p>Instruct the user to install the Futurae mobile app (or your mobile app which has the Futurae SDK integrated) on his device, in case he does not already have the application installed.</p>
+                    </li>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-enroll">/user/enroll</a> and display to the user the QR code which can be retrieved by the URL contained in the <code>activation_qrcode_url</code> response key. The user uses the camera of his device in order to scan the QR via the Futurae app. Alternatively, if the user is performing the enrollment process from the mobile device on which he installed the app, he can tap on the link provided by the <code>activation_code</code> response key, which will automatically invoke the Futurae mobile app. In both cases, and if the user’s device has internet connectivity, the device will be enrolled and associated with the particular user.</p>
+                    </li>
+                    <li>
+                        <p>If you supplied a <code>success_callback_url</code> in <a href="auth_api.html#user-enroll">/user/enroll</a> you will automatically be notified via the callback once the enrollment completes successfully. Alternatively, you can poll the progress of the enrollment with the <a href="auth_api.html#user-enroll_status">/user/enroll_status</a> endpoint.</p>
+                    </li>
+                </ol>
+                <h3 id="header-enrollment-with-a-phone-number">Enrollment with a Phone Number <a class="permalink" href="#header-enrollment-with-a-phone-number" aria-hidden="true">¶</a></h3>
+                <p>In order to use SMS passcodes as a second authentication factor, a user first needs to enroll the phone number of his device. In this case the enrollment process is slightly different, as it does not involve the Futurae mobile app:</p>
+                <ol>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-enroll">/user/enroll</a> and supply the <code>phone_number</code> parameter.</p>
+                    </li>
+                    <li>
+                        <p>Use the <code>device_id</code> contained in the response (which is associated with the above supplied phone number) to send a verification SMS code to the registered phone number using <a href="auth_api.html#user-sms_activation">/user/sms_activation</a>. In order to verify the code supplied by the user, the same endpoint can be used (refer to the API doc for details on the format of the request). If the code is correct then the particular phone number is considered enrolled with this user and can be used for sending SMS passcodes (“sms” factor in <a href="auth_api.html#user-authentication-auth">/user/auth</a>).</p>
+                    </li>
+                </ol>
+                <h3 id="header-authentication">Authentication <a class="permalink" href="#header-authentication" aria-hidden="true">¶</a></h3>
+                <p>After a user has enrolled with a device, your application can perform secondary authentication for that user, using any of the available factors, and depending on the capabilities of the user’s devices.</p>
+                <p>The following flowchart illustrates the basic steps for performing a authentication:</p>
+                <center>
+                    <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;zoom&quot;:0.9,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile userAgent=\&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6\&quot; version=\&quot;8.5.0\&quot; editor=\&quot;www.draw.io\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;d8592b69-d73b-d440-f7c0-01fe49438f22\&quot; name=\&quot;Page-1\&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+                    <script type="text/javascript" src="https://www.draw.io/js/viewer.min.js"></script>
+                </center>
+                <p>The details of the process depend on the selected factor, nevertheless <strong>for all factors except “soundproof”</strong> (for which see further below) the high-level procedure is the following:</p>
+                <ol>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-authentication-preauth">/user/preauth</a> to check if the user is eligible for secondary authentication, as well as retrieve his enrolled devices and the capabilities of each device (the capabilities of a device determine which factors can be used with that device).</p>
+                    </li>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-authentication-auth">/user/auth</a> to start the authentication process with a selected factor. For factors where it’s applicable, you may need to specify the user device (or “auto” to automatically use the most recently enrolled one). Also where applicable, use the <code>extra_info</code> parameter in order to supply information about the particular authentication attempt(e.g., the user’s approximate location, IP address and browser). This will appear on the user’s screen, along with the option to approve or reject the authentication attempt.</p>
+                    </li>
+                    <li>
+                        <p>For some factors <a href="auth_api.html#user-authentication-auth">/user/auth</a> will return immediately, providing a <code>session_id</code>. Your application can use the <code>session_id</code> in order to query the status and eventually retrieve the result of this particular authentication attempt, via the <a href="auth_api.html#user-authentication-auth_status">/user/auth_status</a> endpoint. For the “passcode” factor, <a href="auth_api.html#user-authentication-auth">/user/auth</a> will return immediately, providing the result of the passcode verification. Finally for some other factors, there is an option to supply the <code>async</code> parameter, which when set to false, will cause the endpoint to run synchronously and return a response when the authentication process has completed.</p>
+                    </li>
+                </ol>
+                <p>We stress again that there are some slight variations on this generic flow, depending on the particular authentication factor. Please refer to the documentation of the <a href="auth_api.html#user-authentication-auth">/user/auth</a> and <a href="auth_api.html#user-authentication-auth_status">/user/auth_status</a> endpoints for more details. Also, refer to the next section for more details on SoundProof authentication (“soundproof” factor) in particular.</p>
+                <h3 id="header-authentication-using-soundproof">Authentication Using SoundProof <a class="permalink" href="#header-authentication-using-soundproof" aria-hidden="true">¶</a></h3>
+                <p>Using the SoundProof authentication is slightly more involved than the other authentication factors, as it requires your application to also include and use the <a href="/doc/js/index.html">SoundProof JavaScript library</a>, in the login page. This is needed for executing the browser part of the SoundProof protocol. In short, it involves recording audio for a few seconds, and sending the recording to the user’s device over the Internet).</p>
+                <p>The high-level procedure for the <strong>SoundProof</strong> factor is illustrated in the flowchart of the <a href="#header-authentication">previous section</a> and also summarized below:</p>
+                <ol>
+                    <li>Call <a href="auth_api.html#user-authentication-preauth">/user/preauth</a> to check if the user is eligible for secondary authentication, as well as retrieve his enrolled devices and the capabilities of each device (the capabilities of a device determine which factors can be used with that device).</li>
+                </ol>
+                <!--2. Call [/user/auth_prep](auth_api.html#user-authentication-auth_prep) to prepare the SoundProof authentication process on a selected device that offers the "soundproof" capability. This endpoint is applicable only for the "soundproof" factor and enables the Futurae server to already attempt to reach the user device and activate the Futurae app in the background, in order to be ready to start the SoundProof recording process. It returns a `session_id` that identifies the newly created SoundProof authentication session and a `session_token` which needs to be used when invoking the SoundProof JavaScript library on the browser side.
+-->
+                <ol start="2">
+                    <li>Call <a href="auth_api.html#user-authentication-auth">/user/auth</a> to start the SoundProof authentication process (<code>factor</code> paremeter set to “soundproof”) on a selected device that offers the “soundproof” capability. This endpoint will return a <code>session_id</code> that identifies the newly created SoundProof authentication session and a <code>session_token</code> which needs to be used when invoking the SoundProof JavaScript library on the browser side.</li>
+                </ol>
+                <!--3. Perform the following on the server and browser side:
+
+    * On the server side, call [/user/auth](auth_api.html#user-authentication-auth), supplying the `session_id` which was received via [/user/auth_prep](auth_api.html#user-authentication-auth_prep).
+
+    * On the browser side, create a new SoundProof object and invoke `start()` on it, passing the `session_token` which was received via the [/user/auth_prep](auth_api.html#user-authentication-auth_prep) endpoint.
+-->
+                <ol start="3">
+                    <li>
+                        <p>On the browser side, create a new SoundProof object and invoke <code>start()</code> on it, passing the <code>session_token</code> which was received via the <a href="auth_api.html#user-authentication-auth">/user/auth</a> endpoint. Moreover, when creating the SoundProof object, you can pass in a number of callback functions. Each callback will be triggered when a particular event occurs during the SoundProof process, thus giving you the opportunity to get notified about various important events on the client side. Nevertheless, you can only receive the final result via the backend Auth API (see next step).</p>
+                    </li>
+                    <li>
+                        <p>Use the <code>session_id</code> (retrieved by <a href="auth_api.html#user-authentication-auth">/user/auth</a>) in order to query the status and eventually retrieve the result of this particular authentication attempt, via the <a href="auth_api.html#user-authentication-auth_status">/user/auth_status</a> endpoint.</p>
+                    </li>
+                </ol>
+                <h3 id="header-mobile-only-authentication-(single-device)">Mobile Only Authentication (Single Device) <a class="permalink" href="#header-mobile-only-authentication-(single-device)" aria-hidden="true">¶</a></h3>
+                <p>When a user is logging in from a mobile browser or native application on a mobile device that has the Futurae mobile app installed and enrolled for that particular user, then the user can be strongly and conveniently authenticated using the mobile only (or mobile auth) approach. In this particular case, the user is logging in from his trusted device (i.e., one that has the Futurae mobile app installed and enrolled), and in order to strongly authenticate the user we just need to ensure that the login indeed originates from a trusted device.</p>
+                <p>The general flow for performing mobile only authentication using Futurae is the following:</p>
+                <ol>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-authentication-preauth">/user/preauth</a> to check if the user is eligible for secondary authentication, as well as retrieve his enrolled devices and the capabilities of each device (the capabilities of a device determine which factors can be used with that device).</p>
+                    </li>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-authentication-auth">/user/auth</a> as usual using “approve” or “qr_code” as <code>factor</code>. The response from <a href="auth_api.html#user-authentication-auth">/user/auth</a>, among other things, will contain a <code>mobile_auth_uri</code> attribute.</p>
+                    </li>
+                    <li>
+                        <p>Pass the <code>mobile_auth_uri</code> to your client app (mobile browser or native app). Create a button with the supplied URI as action, and prompt the user to tap on it in case he is on his mobile device with the Futurae mobile app installed.</p>
+                    </li>
+                    <li>
+                        <p>The user taps the button which triggers the invocation of the Futurae mobile app. The Futurae mobile app will perform the secondary authentication. After the authentication is completed and depending on the situation, the user will either be automatically switched back to the client app or will be prompted to do a manual switch.</p>
+                    </li>
+                    <li>
+                        <p>In the meantime, use the <code>session_id</code> (retrieved by <a href="auth_api.html#user-authentication-auth">/user/auth</a>) in order to query the status and eventually retrieve the result of this particular authentication attempt, via the <a href="auth_api.html#user-authentication-auth_status">/user/auth_status</a> endpoint.</p>
+                    </li>
+                </ol>
+                <!--
+
+1. Register the set of accepted Service URL and App ID patterns (see [further below](#header-service-url-and-app-id-concepts) for explanation of the concepts). You can do this by calling the [relevant Auth API endpoints](auth_api.html#service-mobile_auth-app_ids). This is an one-off operation that has to happen before performing MobileAuth authentication attempts.
+
+
+2. When starting an authentication attempt, call [/user/preauth](auth_api.html#user-authentication-preauth) to check if the user is eligible for secondary authentication, as well as retrieve his enrolled devices and the capabilities of each device (the capabilities of a device determine which factors can be used with that device).
+
+
+3. Call [/user/auth](auth_api.html#user-authentication-auth) to start the MobileAuth authentication process (`factor` parameter set to "mobile_auth") on a selected device that offers the "mobile_auth" capability. This endpoint will return a `session_id` that identifies the newly created authentication session and a `session_token` which needs to be used on the client-side where the login is taking place (browser or native app) and passed to the respective Futurae mobile auth SDK.
+
+
+4. On the client side (browser or native app), use the respective SDK functionality in order to initiate a "mobile_auth" session. You will need to  pass the `session_token` which was received via the [/user/auth](auth_api.html#user-authentication-auth) endpoint. Moreover, register for the available callback functions. Each callback will be triggered when a particular event occurs during the "mobile_auth" process, thus giving you the opportunity to get notified about various important events on the client side. Nevertheless, you can only receive the final result via the backend Auth API (see next step).
+    * For more information regarding the *iOS mobile auth SDK* see the [respective documentation](https://api-pilot.futurae.com/doc/mobile_auth/ios/index.html).
+    * Android mobile auth SDK: coming soon.
+    * JavaScript mobile auth SDK: coming soon.
+
+
+5. Use the `session_id` (retrieved by [/user/auth](auth_api.html#user-authentication-auth)) in order to query the status and eventually retrieve the result of this particular authentication attempt, via the [/user/auth_status](auth_api.html#user-authentication-auth_status) endpoint.
+
+#### Service URL and App ID Concepts
+For MobileAuth to work properly and securely, you need to register a set of URLs and App IDs which the Futurae mobile app can use and verify during a MobileAuth session in order to securely communicate with your website (when using a mobile browser) or native app from which the login originates. A correct configuration of the Service URLs and App IDs is crucial for the proper functioning and security of the MobileAuth factor, so the concept is explained in more details in the following section.
+
+#### Service URL
+The Service URL is used during the MobileAuth protocol execution to verify the *target* to perform the callback to the calling app or website. To verify the *target* of a callback, it must match at least one Service URL pattern.
+
+Include all URL Schemes that your native apps will register on the mobile platforms (e.g. `democlient://`) and URLs of the login pages (relevant for mobile browser logins, e.g. `https://demo.com/login`) for which you want to enable MobileAuth.
+
+#### App IDs
+The App ID is used during the MobileAuth protocol execution to verify the *origin* of a URL Scheme call. To verify the *origin*, it must match at least one App ID pattern.
+
+Include all App IDs of the native apps (e.g. `com.democlient.app`) for which you want to enable MobileAuth.
+
+#### Pattern Matching
+To validate a Service URL or App ID pattern, the actual values are matched based on Go's filepath matching and may include `*` wildcards. For this reason, e.g. https://* matches `https://futurae.com`, but not `https://futurae.com/`.
+
+For security reasons, each pattern should be as restrictive as possible.
+Invalid patterns are rejected, see the [respective Golang doc](https://golang.org/pkg/path/filepath/#Match) to explore how the matching algorithm works.
+
+#### Examples
+
+*iOS*
+
+A native iOS app has the Bundle ID `com.democlient.app`, and there also exist beta and development versions of the app with Bundle IDs `com.democlient.beta.rc` and `com.democlient.beta.dev`. All apps have registered the URL Scheme `democlient://`.
+
+The following configuration is recommended:
+
+```
+{
+  "service_urls": ["democlient://"],
+  "app_ids": ["com.democlient.app", "com.democlient.beta.*"]
+}
+```
+
+*Android*
+
+A native Android app has the package name `com.democlient.app`, and there also exist beta and development versions of the app with the package names `com.democlient.beta.rc` and `com.democlient.beta.dev`. All apps have registered an intent-filter with the scheme `democlient`.
+
+The following configuration is recommended:
+
+```
+{
+  "service_urls": ["democlient://"],
+  "app_ids": ["com.democlient.app", "com.democlient.beta.*"]
+}
+```
+
+*Website*
+
+The login page of a website is located at `https://service.com/login`, but since the website is localized using a sub-domain, there are other login pages at `https://en.service.com/login`, `https://de.service.com/login` etc.
+
+The following configuration is recommended:
+
+```
+{
+  "service_urls": ["https://service.com/login", "https://*.service.com/login"],
+  "app_ids": [""]
+}
+```
+
+-->
+                <h3 id="header-transaction-authentication">Transaction Authentication <a class="permalink" href="#header-transaction-authentication" aria-hidden="true">¶</a></h3>
+                <p>Futurae offers the ability to protect sensitive actions, which an authenticated user performs in your application, such as performing a financial transaction, or updating sensitive information in his profile. This is called transaction authentication (or transaction signing).</p>
+                <p>The following flowchart illustrates the basic steps for performing transaction authentication:</p>
+                <center>
+                    <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;zoom&quot;:0.9,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile userAgent=\&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6\&quot; version=\&quot;8.5.0\&quot; editor=\&quot;www.draw.io\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;d8592b69-d73b-d440-f7c0-01fe49438f22\&quot; name=\&quot;Page-1\&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+                    <script type="text/javascript" src="https://www.draw.io/js/viewer.min.js"></script>
+                </center>
+                <p>The details of the process depend on the selected factor, nevertheless <strong>for all factors except “soundproof”</strong> (for which see further below) the high-level procedure is the following:</p>
+                <ol>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-authentication-preauth">/user/preauth</a> to check if the user is eligible for secondary authentication, as well as retrieve his enrolled devices and the capabilities of each device (the capabilities of a device determine which factors can be used with that device).</p>
+                    </li>
+                    <li>
+                        <p>Call <a href="auth_api.html#user-authentication-auth-transaction">/user/auth/transaction</a> to start the transaction authentication process with a selected factor. Use the <code>extra_info</code> parameter in order to supply information about the action which the user has to approve. This will appear on the user’s screen, along with the option to confirm or reject the transaction.</p>
+                    </li>
+                    <li>
+                        <p>For some factors <a href="auth_api.html#user-authentication-auth-transaction">/user/auth/transaction</a> will return immediately, providing a <code>session_id</code>. Your application can use the <code>session_id</code> in order to query the status and eventually retrieve the result of this particular authentication attempt, via the <a href="auth_api.html#user-authentication-auth_status">/user/auth_status</a> endpoint. Finally for some other factors, there is an option to supply the <code>async</code> parameter, which when set to false, will cause the endpoint to run synchronously and return a response when the authentication process has completed.</p>
+                    </li>
+                </ol>
+                <p>We stress again that there are some slight variations on this generic flow, depending on the particular authentication factor. Please refer to the documentation of the <a href="auth_api.html#user-authentication-auth-transaction">/user/auth/transaction</a> and <a href="auth_api.html#user-authentication-auth_status">/user/auth_status</a> endpoints for more details.</p>
+                <br/>
+                <br/>
+                <br/></div>
+        </div>
+    </div>
+    <p style="text-align: center;" class="text-muted">&copy; Copyright 2018 Futurae Technologies AG.</p>
+    <p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 03 Apr 2018</p>
+    <script>
+        /* eslint-env browser */
+        /* eslint quotes: [2, "single"] */
+        'use strict';
+
+        /*
+          Determine if a string ends with another string.
+        */
+        function endsWith(str, suffix) {
+            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+        }
+
+        /*
+          Get a list of direct child elements by class name.
+        */
+        function childrenByClass(element, name) {
+            var filtered = [];
+
+            for (var i = 0; i < element.children.length; i++) {
+                var child = element.children[i];
+                var classNames = child.className.split(' ');
+                if (classNames.indexOf(name) !== -1) {
+                    filtered.push(child);
+                }
+            }
+
+            return filtered;
+        }
+
+        /*
+          Get an array [width, height] of the window.
+        */
+        function getWindowDimensions() {
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.body,
+                x = w.innerWidth || e.clientWidth || g.clientWidth,
+                y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+            return [x, y];
+        }
+
+        /*
+          Collapse or show a request/response example.
+        */
+        function toggleCollapseButton(event) {
+            var button = event.target.parentNode;
+            var content = button.parentNode.nextSibling;
+            var inner = content.children[0];
+
+            if (button.className.indexOf('collapse-button') === -1) {
+                // Clicked without hitting the right element?
+                return;
+            }
+
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                // Currently showing, so let's hide it
+                button.className = 'collapse-button';
+                content.style.maxHeight = '0px';
+            } else {
+                // Currently hidden, so let's show it
+                button.className = 'collapse-button show';
+                content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+            }
+        }
+
+        function toggleTabButton(event) {
+            var i, index;
+            var button = event.target;
+
+            // Get index of the current button.
+            var buttons = childrenByClass(button.parentNode, 'tab-button');
+            for (i = 0; i < buttons.length; i++) {
+                if (buttons[i] === button) {
+                    index = i;
+                    button.className = 'tab-button active';
+                } else {
+                    buttons[i].className = 'tab-button';
+                }
+            }
+
+            // Hide other tabs and show this one.
+            var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+            for (i = 0; i < tabs.length; i++) {
+                if (i === index) {
+                    tabs[i].style.display = 'block';
+                } else {
+                    tabs[i].style.display = 'none';
+                }
+            }
+        }
+
+        /*
+          Collapse or show a navigation menu. It will not be hidden unless it
+          is currently selected or `force` has been passed.
+        */
+        function toggleCollapseNav(event, force) {
+            var heading = event.target.parentNode;
+            var content = heading.nextSibling;
+            var inner = content.children[0];
+
+            if (heading.className.indexOf('heading') === -1) {
+                // Clicked without hitting the right element?
+                return;
+            }
+
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                // Currently showing, so let's hide it, but only if this nav item
+                // is already selected. This prevents newly selected items from
+                // collapsing in an annoying fashion.
+                if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
+                    content.style.maxHeight = '0px';
+                }
+            } else {
+                // Currently hidden, so let's show it
+                content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+            }
+        }
+
+        /*
+          Refresh the page after a live update from the server. This only
+          works in live preview mode (using the `--server` parameter).
+        */
+        function refresh(body) {
+            document.querySelector('body').className = 'preload';
+            document.body.innerHTML = body;
+
+            // Re-initialize the page
+            init();
+            autoCollapse();
+
+            document.querySelector('body').className = '';
+        }
+
+        /*
+          Determine which navigation items should be auto-collapsed to show as many
+          as possible on the screen, based on the current window height. This also
+          collapses them.
+        */
+        function autoCollapse() {
+            var windowHeight = getWindowDimensions()[1];
+            var itemsHeight = 64; /* Account for some padding */
+            var itemsArray = Array.prototype.slice.call(
+                document.querySelectorAll('nav .resource-group .heading'));
+
+            // Get the total height of the navigation items
+            itemsArray.forEach(function(item) {
+                itemsHeight += item.parentNode.offsetHeight;
+            });
+
+            // Should we auto-collapse any nav items? Try to find the smallest item
+            // that can be collapsed to show all items on the screen. If not possible,
+            // then collapse the largest item and do it again. First, sort the items
+            // by height from smallest to largest.
+            var sortedItems = itemsArray.sort(function(a, b) {
+                return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+            });
+
+            while (sortedItems.length && itemsHeight > windowHeight) {
+                for (var i = 0; i < sortedItems.length; i++) {
+                    // Will collapsing this item help?
+                    var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+                    if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+                        // It will, so let's collapse it, remove its content height from
+                        // our total and then remove it from our list of candidates
+                        // that can be collapsed.
+                        itemsHeight -= itemHeight;
+                        toggleCollapseNav({
+                            target: sortedItems[i].children[0]
+                        }, true);
+                        sortedItems.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        /*
+          Collaplse all nav items
+        */
+        function collapseAll() {
+            //var windowHeight = getWindowDimensions()[1];
+            //var itemsHeight = 64; /* Account for some padding */
+            var itemsArray = Array.prototype.slice.call(
+                document.querySelectorAll('nav .resource-group .heading'));
+
+            // Get the total height of the navigation items
+            // itemsArray.forEach(function (item) {
+            //   itemsHeight += item.parentNode.offsetHeight;
+            // });
+
+            // Should we auto-collapse any nav items? Try to find the smallest item
+            // that can be collapsed to show all items on the screen. If not possible,
+            // then collapse the largest item and do it again. First, sort the items
+            // by height from smallest to largest.
+            // var sortedItems = itemsArray.sort(function (a, b) {
+            //   return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+            // });
+
+            //while (itemsArray.length && itemsHeight > windowHeight) {
+            for (var i = 0; i < itemsArray.length; i++) {
+                //toggleCollapseNav({target: itemsArray[i].children[0]}, false);
+                var event = itemsArray[i].children[0];
+                var heading = event.target.parentNode;
+                var content = heading.nextSibling;
+                var inner = content.children[0];
+                content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+                //content.style.maxHeight = '0px';
+                //}
+            }
+            //}
+        }
+
+        /*
+          Initialize the interactive functionality of the page.
+        */
+        function init() {
+            var i, j;
+
+            // Make collapse buttons clickable
+            var buttons = document.querySelectorAll('.collapse-button');
+            for (i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = toggleCollapseButton;
+
+                // Show by default? Then toggle now.
+                if (buttons[i].className.indexOf('show') !== -1) {
+                    toggleCollapseButton({
+                        target: buttons[i].children[0]
+                    });
+                }
+            }
+
+            var responseCodes = document.querySelectorAll('.example-names');
+            for (i = 0; i < responseCodes.length; i++) {
+                var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+                for (j = 0; j < tabButtons.length; j++) {
+                    tabButtons[j].onclick = toggleTabButton;
+
+                    // Show by default?
+                    if (j === 0) {
+                        toggleTabButton({
+                            target: tabButtons[j]
+                        });
+                    }
+                }
+            }
+
+            // Make nav items clickable to collapse/expand their content.
+            // var navItems = document.querySelectorAll('nav .resource-group .heading');
+            // for (i = 0; i < navItems.length; i++) {
+            //     navItems[i].onclick = toggleCollapseNav;
+            //
+            //     // Show all by default
+            //     toggleCollapseNav({target: navItems[i].children[0]});
+            // }
+        }
+
+        // Prevent scrolling to change active after having just clicked
+        // on a navigation bar element
+        var setActiveDueToClick = false;
+
+        // Highgliht clicked navigation bar element
+        function setActive(element) {
+            var id = $(element).attr('href');
+            $('#navigation a').removeClass('active');
+            $('#navigation a[href="' + id + '"]').addClass('active');
+
+            setActiveDueToClick = true;
+        }
+
+        // Helper function for tab switching
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Initial call to set up buttons
+        init();
+
+        window.onload = function() {
+            //autoCollapse();
+            //collapseAll();
+
+            // Remove the `preload` class to enable animations
+            document.querySelector('body').className = '';
+
+
+            // add section class to all <a> elements within a heading (for autohilightning during scrolling the introductory text)
+            $('h1 a').addClass("section")
+            $('h2 a').addClass("section")
+            $('h3 a').addClass("section")
+
+            // Set up the navigation bar auto hightlight when scrolling
+            $(window).scroll(function() {
+                if (setActiveDueToClick) {
+                    setActiveDueToClick = false;
+                    return;
+                }
+                var position = $(this).scrollTop() + 20;
+                //console.log("-----------------------");
+                $('.section').each(function() {
+                    var target = $(this).offset().top;
+                    var id = $(this).attr('href');
+                    //console.log(id);
+                    if (position >= target) {
+                        //console.log("yes!");
+                        $('#navigation a').removeClass('active');
+                        $('#navigation a[href="' + id + '"]').addClass('active');
+                    }
+                });
+            });
+
+        };
+
+    </script>
+</body>
+
+</html>

@@ -42,6 +42,10 @@ p {
     font-size: 16px;
 }
 
+a {
+    color: $color-green;
+}
+
 .twitter-widget {
     padding: 50px;
 }
@@ -54,7 +58,7 @@ p {
 
 #header {
     padding-top: 180px;
-    padding-bottom: 50px;
+    padding-bottom: 80px;
 }
 
 #header-company {
@@ -193,6 +197,11 @@ p {
 
 }
 
+#posts {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 .bg-light {
     background-color: white;
 }
@@ -228,7 +237,6 @@ section {
 }
 
 hr {
-    margin-bottom: 5rem;
     border: 0;
     border-top: 1px solid white;
 }
@@ -238,16 +246,30 @@ hr {
 .navbar {
     padding-top: 35px;
 
-    .nav-item {
-        margin-right: 25px;
-    }
-
     .nav-link {
         text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
         font-weight: 700;
-        color: white!important;
+        color: white;
+        font-size: 15px;
     }
+}
+
+.active {
+    color: $color-green!important;
+}
+
+.dropdown {
+    .dropdown-item {
+        &:active {
+            background: $color-orange!important;
+        }
+    }
+}
+
+.demo-btn-nav {
+    border: 1px solid $color-green;
+    border-radius: 5px;
 }
 
 .intro-screen {
@@ -289,6 +311,57 @@ hr {
         .card-footer {
             border: none;
             background: transparent;
+        }
+    }
+}
+
+#featured-article {
+    margin-top: 100px;
+    padding-bottom: 30px;
+}
+
+.blog-archive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+@media (max-width: 576px) {
+    .blog-archive {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+
+.card-img-right {
+    height: 200px;
+    border-radius: 0 3px 3px 0;
+    width: 300px;
+    display: flex;
+    align-self: center;
+}
+
+
+#recent-article {
+    margin-top: 35px;
+    padding-bottom: 30px;
+
+    .card {
+        height: 202px;
+    }
+}
+
+@media (max-width: 576px) {
+    #recent-article {
+        margin-top: 35px;
+        padding-bottom: 30px;
+
+        .card {
+            height: auto;
         }
     }
 }
@@ -440,4 +513,26 @@ hr {
     height: 100%;
     width: 100%;
     position: absolute;
+}
+
+
+/* BLOG ARTICLE */
+
+.blog-article-heading {
+    padding-top: 50px;
+    padding-bottom: 80px;
+
+    h2 {
+        color: white;
+    }
+
+    a {
+        color: $color-green;
+    }
+
+}
+
+.blog-article-content {
+    padding-top: 50px;
+    padding-bottom: 80px;
 }
