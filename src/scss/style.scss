@@ -255,7 +255,7 @@ section {
 hr {
     border: 0;
     border-top: 1px solid white;
-    padding-bottom: 35px;
+    padding-bottom: 35px!important;
 }
 
 /* COMPONENTS */
@@ -380,7 +380,6 @@ hr {
     }
 
 }
-
 
 .card-img-right {
     height: 200px;
