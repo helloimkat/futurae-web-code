@@ -44,6 +44,11 @@ p {
 
 a {
     color: $color-green;
+
+    &:hover {
+        color: #438758;
+        text-decoration: none;
+    }
 }
 
 .twitter-widget {
@@ -293,6 +298,18 @@ hr {
     a {
         color: white;
     }
+}
+
+.media-img {
+    width: 100%;
+}
+
+.media-featured {
+    margin-bottom: 50px;
+}
+
+.media-card {
+    height: 480px;
 }
 
 #testimonials {

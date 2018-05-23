@@ -29,6 +29,9 @@ p {
 
 a {
   color: #5FB97D; }
+  a:hover {
+    color: #438758;
+    text-decoration: none; }
 
 .twitter-widget {
   padding: 50px; }
@@ -194,6 +197,15 @@ hr {
   text-transform: uppercase; }
   .btn-blog a {
     color: white; }
+
+.media-img {
+  width: 100%; }
+
+.media-featured {
+  margin-bottom: 50px; }
+
+.media-card {
+  height: 480px; }
 
 #testimonials {
   background-color: #F5F6F8; }
