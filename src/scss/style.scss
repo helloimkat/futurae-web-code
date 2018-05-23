@@ -57,6 +57,12 @@ a {
 
 .btn-bordered {
     margin-top: 10px;
+    border-radius: 2px;
+
+}
+
+.jumbotron {
+    border-radius: 2px;
 }
 
 /* HELPER CLASSES*/
@@ -93,6 +99,7 @@ a {
     .btn-demo {
         margin-bottom: 30px;
         margin-top: 10px;
+        border-radius: 2px;
     }
 
     .contact-info {
@@ -186,6 +193,7 @@ a {
     font-weight: 700;
     text-transform: uppercase;
     padding: 7px 15px 7px 15px;
+    border-radius: 2px;
 }
 
 .btn-bordered {
@@ -193,6 +201,7 @@ a {
     border: 1px solid $color-orange;
     color: $color-orange;
     font-weight: 700;
+    border-radius: 2px;
     text-transform: uppercase;
     padding: 7px 15px 7px 15px;
 
@@ -239,11 +248,14 @@ section {
     border: 1px solid #D75014;
     background-color: transparent;
     padding: 6px 100px 6px 100px;
+    border-radius: 2px;
+
 }
 
 hr {
     border: 0;
     border-top: 1px solid white;
+    padding-bottom: 35px;
 }
 
 /* COMPONENTS */
@@ -260,6 +272,8 @@ hr {
         font-size: 15px;
     }
 }
+
+
 
 .active {
     color: $color-green!important;
@@ -279,7 +293,8 @@ hr {
 
 .demo-btn-nav {
     border: 1px solid $color-green;
-    border-radius: 5px;
+    border-radius: 2px;
+
 }
 
 .intro-screen {
@@ -291,6 +306,9 @@ hr {
 
 
 .card {
+    border-radius: 2px;
+
+
     .blog-item {
         height: 400px;
     }
@@ -299,6 +317,7 @@ hr {
 .btn-blog {
     background-color: $color-orange;
     font-weight: 700;
+    border-radius: 2px;
     text-transform: uppercase;
     a {
         color: white;
