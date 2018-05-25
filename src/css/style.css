@@ -33,12 +33,24 @@ a {
     color: #438758;
     text-decoration: none; }
 
+.icon {
+  width: 55px;
+  height: 55px;
+  background-color: #D75014;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex; }
+
 .twitter-widget {
   padding: 50px; }
 
 .btn-bordered {
   margin-top: 10px;
   border-radius: 2px; }
+
+.product-promo {
+  padding-top: 50px; }
 
 .jumbotron {
   border-radius: 2px; }
@@ -123,6 +135,8 @@ a {
   text-transform: uppercase;
   padding: 7px 15px 7px 15px;
   border-radius: 2px; }
+  .btn-demo:hover {
+    color: #91360E; }
 
 .btn-bordered {
   background-color: transparent;
@@ -213,6 +227,20 @@ hr {
   text-transform: uppercase; }
   .btn-blog a {
     color: white; }
+
+.strong-auth row {
+  padding-top: 35px; }
+
+.accolades .row {
+  padding-bottom: 35px; }
+
+.accolades .col-md-6 {
+  padding: 25px; }
+
+.accolades .media {
+  color: white; }
+  .accolades .media img {
+    width: 180px; }
 
 .media-img {
   width: 100%; }
