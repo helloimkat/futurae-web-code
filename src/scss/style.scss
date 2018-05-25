@@ -277,6 +277,11 @@ hr {
 
 /* COMPONENTS */
 
+.navbar-white .navbar-nav .nav-link {
+    color: white;
+}
+
+
 .navbar {
     padding-top: 35px;
     padding-bottom: 35px;
@@ -289,8 +294,6 @@ hr {
         font-size: 15px;
     }
 }
-
-
 
 .active {
     color: $color-green!important;
