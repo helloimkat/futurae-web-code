@@ -60,6 +60,7 @@ label {
 .form-control {
     border: 1px solid $color-orange;
     background-color: transparent;
+    color: #f2f2f2!important;
 
     &:focus {
         background-color: transparent;

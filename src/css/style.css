@@ -40,7 +40,8 @@ label {
 
 .form-control {
   border: 1px solid #D75014;
-  background-color: transparent; }
+  background-color: transparent;
+  color: #f2f2f2 !important; }
   .form-control:focus {
     background-color: transparent;
     border-color: #FF0000;
