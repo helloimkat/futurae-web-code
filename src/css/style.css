@@ -30,8 +30,8 @@ p {
 a {
   color: #5FB97D; }
   a:hover {
-    color: #438758;
-    text-decoration: none; }
+    text-decoration: underline;
+    color: #5FB97D; }
 
 label {
   color: white;
@@ -150,7 +150,10 @@ label {
   padding: 7px 15px 7px 15px;
   border-radius: 2px; }
   .btn-demo:hover {
-    color: #91360E; }
+    color: #D75014;
+    background-color: transparent;
+    border: 1px solid #D75014;
+    transition: all 0.1s ease-in; }
 
 .btn-bordered {
   background-color: transparent;
@@ -203,6 +206,12 @@ hr {
 .navbar-white .navbar-nav .nav-link {
   color: white; }
 
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(116,116,116, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); }
+
+.custom-toggler.navbar-toggler {
+  border-color: #747474; }
+
 .navbar {
   padding-top: 35px;
   padding-bottom: 35px; }
@@ -212,6 +221,8 @@ hr {
     font-weight: 700;
     color: white;
     font-size: 15px; }
+    .navbar .nav-link:hover {
+      color: #5FB97D; }
 
 .active {
   color: #5FB97D !important; }
@@ -223,8 +234,14 @@ hr {
   width: 80%; }
 
 .demo-btn-nav {
-  border: 1px solid #5FB97D;
-  border-radius: 2px; }
+  border-radius: 2px;
+  background-color: #5FB97D;
+  border: 1px solid #5FB97D; }
+  .demo-btn-nav:hover {
+    border: 1px solid #5FB97D;
+    background: transparent;
+    color: #5FB97D !important;
+    transition: all 0.1s ease-in; }
 
 .intro-screen {
   height: 500px;
@@ -344,12 +361,15 @@ hr {
     color: #747474; }
   .latest-blog .card-footer {
     text-transform: capitalize;
-    background-color: #323236; }
-    .latest-blog .card-footer a {
-      color: white; }
-      .latest-blog .card-footer a:hover {
-        font-weight: 400;
-        text-decoration: none; }
+    background-color: #323236;
+    border: 1px solid #323236;
+    color: white; }
+    .latest-blog .card-footer:hover {
+      background-color: transparent;
+      border: 1px solid #323236;
+      color: #323236;
+      text-decoration: none;
+      transition: all 0.1s ease-in; }
 
 /* IMG HOVER */
 .hovereffect {

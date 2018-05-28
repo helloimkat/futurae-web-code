@@ -46,8 +46,8 @@ a {
     color: $color-green;
 
     &:hover {
-        color: #438758;
-        text-decoration: none;
+        text-decoration: underline;
+        color: $color-green;
     }
 }
 
@@ -87,7 +87,6 @@ label {
 .btn-bordered {
     margin-top: 10px;
     border-radius: 2px;
-
 }
 
 .product-promo {
@@ -228,7 +227,10 @@ label {
     border-radius: 2px;
 
     &:hover {
-        color: #91360E;
+        color: $color-orange;
+        background-color: transparent;
+        border: 1px solid $color-orange;
+        transition: all 0.1s ease-in;
     }
 }
 
@@ -300,6 +302,13 @@ hr {
     color: white;
 }
 
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(116,116,116, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+    border-color: rgb(116, 116, 116);
+}
 
 .navbar {
     padding-top: 35px;
@@ -311,6 +320,10 @@ hr {
         font-weight: 700;
         color: white;
         font-size: 15px;
+
+        &:hover {
+            color: $color-green;
+        }
     }
 }
 
@@ -331,8 +344,16 @@ hr {
 }
 
 .demo-btn-nav {
-    border: 1px solid $color-green;
     border-radius: 2px;
+    background-color: $color-green;
+    border: 1px solid $color-green;
+
+    &:hover {
+        border: 1px solid $color-green;
+        background: transparent;
+        color: $color-green!important;
+        transition: all 0.1s ease-in;
+    }
 
 }
 
@@ -416,6 +437,7 @@ hr {
         .card-footer {
             border: none;
             background: transparent;
+
         }
     }
 }
@@ -510,13 +532,15 @@ hr {
     .card-footer {
         text-transform: capitalize;
         background-color: $color-dark;
-        a {
-            color: white;
+        border: 1px solid $color-dark;
+        color: white;
 
-            &:hover {
-                font-weight: 400;
-                text-decoration: none;
-            }
+        &:hover {
+            background-color: transparent;
+            border: 1px solid $color-dark;
+            color: $color-dark;
+            text-decoration: none;
+            transition: all 0.1s ease-in;
         }
     }
 }
@@ -549,6 +573,7 @@ hr {
     position: relative;
     -webkit-transition: all 0.4s ease-in;
     transition: all 0.4s ease-in;
+
 }
 
 .hovereffect:hover img {
