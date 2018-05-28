@@ -365,11 +365,10 @@ hr {
     border: 1px solid #323236;
     color: white; }
     .latest-blog .card-footer:hover {
-      background-color: transparent;
+      background-color: #323236;
       border: 1px solid #323236;
-      color: #323236;
-      text-decoration: none;
-      transition: all 0.1s ease-in; }
+      color: white;
+      text-decoration: underline; }
 
 /* IMG HOVER */
 .hovereffect {
