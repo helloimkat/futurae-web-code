@@ -544,6 +544,24 @@ hr {
     }
 }
 
+.dropdown-toggle-split {
+    background-color: transparent;
+    color: white;
+
+    &:focus {
+        box-shadow: none;
+        outline: 0 none;
+    }
+}
+
+.dropdown-menu {
+    .dropdown-item {
+        &:active {
+            background: $color-orange!important;
+        }
+    }
+}
+
 /* IMG HOVER */
 
 .hovereffect {

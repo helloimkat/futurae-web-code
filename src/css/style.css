@@ -370,6 +370,16 @@ hr {
       color: white;
       text-decoration: underline; }
 
+.dropdown-toggle-split {
+  background-color: transparent;
+  color: white; }
+  .dropdown-toggle-split:focus {
+    box-shadow: none;
+    outline: 0 none; }
+
+.dropdown-menu .dropdown-item:active {
+  background: #D75014 !important; }
+
 /* IMG HOVER */
 .hovereffect {
   width: 100%;
