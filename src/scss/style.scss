@@ -703,3 +703,20 @@ hr {
     padding-top: 50px;
     padding-bottom: 80px;
 }
+
+/* PAGINATION */
+
+.pagination {
+    .active {
+        color: #ffffff!important;
+        font-weight: bold;
+        background-color: $color-green;
+        border: 1px solid $color-green;
+    }
+
+    .page-item .page-link {
+        border: 1px solid #E2E2E2;
+        border-radius: 2px;
+        color: $color-dark;
+    }
+}
